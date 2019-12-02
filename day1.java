@@ -4,15 +4,16 @@ import java.io.File;
 public class day1{
   public static void main(String[] args){
     File file = new File(System.getProperty("user.dir") + "/day1in.txt");
-    Scanner scan = new Scanner(System.in);
     System.out.println("Fuel Needed for modules: " + moduleFuel());
-    System.out.println("fuel needed for fuel: " + fuel(moduleFuel()));
+    System.out.println("Fuel Needed for fuel: " + fuel2());
   } 
    
   public static int moduleFuel(){
     int fuel = 0;
     try{
+    File file = new File(System.getProperty("user.dir") + "/day1in.txt");
     Scanner scan = new Scanner(file);
+      
     int input = -1;
     while(scan.hasNext()){
       input = scan.nextInt();
@@ -26,16 +27,23 @@ public class day1{
     
     return fuel;
   }
-  public static int fuel(int fuel){
-    int add = fuel/3 - 2;
-    fuel = 0;
-    while(add > 0){
-      System.out.println("fuel: " + fuel);
-      System.out.println(add);
-      
-      fuel += add;
-      add = add/3 -2;
+  
+  public static int fuel2(){
+    int fuel = 0;
+    try{
+      File file = new File(System.getProperty("user.dir") + "/day1in.txt");
+      Scanner scan = new Scanner(file);
+      while(scan.hasNext()){
+        int input = scan.nextInt();
+        fuel += calculateFuel(input);
     }
+    }
+    catch(Exception e){}
     return fuel;
+    }
+  public static int calculateFuel(int fuel){
+    fuel = fuel/3 - 2;
+    if(fuel <= 0){return 0;}
+    return fuel + calculateFuel(fuel);
   }
  }
