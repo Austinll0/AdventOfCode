@@ -66,7 +66,6 @@ public class day3{
     int wireLen = wires[0].checkDist(closest) + wires[1].checkDist(closest);
     while(!intersections.isEmpty()){
       Position P = intersections.pop();
-      System.out.println(P.print());
       int temp = wires[0].checkDist(P) + wires[1].checkDist(P);
       if(temp < wireLen){wireLen = temp;}
     }
@@ -139,15 +138,19 @@ class Wire{
   }
   
   public int checkDist(Position p){
-    int dist = 0;
+    int dist = -1;
     Position current = new Position(0,0);
+    System.out.println(p.print());
     for(Line l : lines){
+      System.out.println(current.print());
+      System.out.println(dist);
       switch(l.dir){
         case 'R': for(; current.x != l.e.x; current.setX(current.x + 1)){dist++; if(current.equals(p)){break;}} break;
-        case 'L': for(; current.x != l.s.x; current.setX(current.x + 1)){dist++; if(current.equals(p)){break;}} break;
+        case 'L': for(; current.x != l.s.x; current.setX(current.x - 1)){dist++; if(current.equals(p)){break;}} break;
         case 'U': for(; current.y != l.e.y; current.setY(current.y + 1)){dist++; if(current.equals(p)){break;}} break;
-        case 'D': for(; current.y != l.s.y; current.setY(current.y + 1)){dist++; if(current.equals(p)){break;}} break;
+        case 'D': for(; current.y != l.s.y; current.setY(current.y - 1)){dist++; if(current.equals(p)){break;}} break;
       }
+      if(current.equals(p)){break;}
     }
     System.out.println(dist);
     return dist;
