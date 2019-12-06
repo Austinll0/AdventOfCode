@@ -14,6 +14,29 @@ public class day6{
       }
     }
     System.out.println("Part 1: " + orbits);
+    
+    String start = "YOU";
+    String goal = "SAN";
+    List<String> startChain = new LinkedList<>();
+    List<String> goalChain = new LinkedList<>();
+    
+    while(start != null){
+      start = map.get(start).getParent();
+      startChain.add(start);
+    }
+    int i = 0;
+    while(goal != null){
+      goal = map.get(goal).getParent();
+      if(startChain.contains(goal)){
+        break;
+      }
+      i++;
+    }
+    for(String s : startChain){
+      if(!s.equals(goal)){i++;}
+      else{break;}
+    }
+    System.out.println("Part 2: " + i);
   }
   
   public static HashMap<String,Body> Load(File file){
