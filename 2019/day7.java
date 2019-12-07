@@ -19,16 +19,6 @@ public class day7{
     int startVal = 0;
     Load(list,file);
     heapPermutation(settings,vals,vals.length,vals.length);
-    /*
-    try{
-      String commands = 1 + "," + 4;
-      Write(in,commands);
-      Scanner scan = new Scanner(in).useDelimiter(",");
-      int val1 =scan.nextInt();
-      int val2 = scan.nextInt();
-      Write(in,val2);
-    }catch(Exception e){System.out.println("wtf");}
-    */
     
     for(Integer[] setting : settings){
       int input = startVal;
@@ -37,12 +27,6 @@ public class day7{
         int i = 0;
         Write(in,commands);
           while(list.get(i) != 99){
-            /*
-            try{
-            Scanner scan = new Scanner(in);
-            System.out.println(scan.nextLine());
-            }catch(Exception e){System.out.println("WTF 2");}
-            */
             i+= parseCode(list,i);
           }
         try{
@@ -55,7 +39,7 @@ public class day7{
          maxSetting = setting;
       }
     }
-    System.out.println("Part1: " + max);
+    System.out.println("Part 1: " + max);
    // remove files at end of program
    in.delete();
    out.delete();
@@ -86,7 +70,6 @@ public class day7{
       code = Integer.parseInt(String.valueOf(val.charAt(4)));
     }
     
-    //System.out.println(i + ": " + a + " " + b + " " + c + " " + code);
     switch(code){
       case 1:
       case 2: 
