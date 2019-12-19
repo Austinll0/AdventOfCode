@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.File;
 
-public class day3{
+public class day03{
   public static void main(String[] args){
     Position closest;
     LinkedList<Position> intersections = new LinkedList<Position>();

@@ -1,6 +1,6 @@
 import java.util.*;
 import java.io.File;
-public class day2{
+public class day02{
   public static void main(String[] args){
     File file = new File(System.getProperty("user.dir") + "/day2in.txt");
     LinkedList<Integer> list = load(file);

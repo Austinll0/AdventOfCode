@@ -1,7 +1,7 @@
 import java.io.File;
 import java.util.Scanner;
 
-public class day1{
+public class day01{
   public static void main(String[] args){
     File file = new File(System.getProperty("user.dir") + "/day1in.txt");
     System.out.println("Fuel Needed for modules: " + moduleFuel());

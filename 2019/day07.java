@@ -2,7 +2,7 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.io.*;
 
-public class day7{
+public class day07{
   
   public static void main(String[] args){
     File file = new File(System.getProperty("user.dir") + "/day7in.txt");

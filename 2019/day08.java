@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.File;
 
-public class day8{
+public class day08{
   public static void main(String[] args){
     LinkedList<Integer[]> layers = new LinkedList<>();
     LinkedList<Integer> message = new LinkedList<>();

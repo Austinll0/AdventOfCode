@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.File;
 
-public class day6{
+public class day06{
   public static void main(String[] args){
     File file = new File(System.getProperty("user.dir") + "/day6in.txt");
     HashMap<String,Body> map = Load(file);

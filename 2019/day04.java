@@ -1,4 +1,4 @@
-public class day4{
+public class day04{
   public static void main(String[] args){
     int min = 264793;
     int max = 803935;
