@@ -15,4 +15,4 @@ def points(line):
     return out;
 
 for line in open("day14ex.txt"):
-    points(line);
+    print(points(line));
