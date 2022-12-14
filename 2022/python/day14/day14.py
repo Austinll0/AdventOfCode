@@ -12,6 +12,7 @@ def points(line):
             for y in range(ymin,ymax):
                 out.append([x,y]);
     out = [tuple(i) for i in out]
+    return out;
 
 for line in open("day14ex.txt"):
     points(line);
