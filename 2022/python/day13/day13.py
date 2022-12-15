@@ -1,3 +1,4 @@
+import time;
 def compare(left, right):
     for i in range(len(left)):
         l = left[i];
@@ -48,6 +49,7 @@ def parse(line,val):
             i = j
     return [out,i];
 
+start = time.time();
 p1 = 0;
 with open("day13in.txt") as f:
     i = 1;
@@ -60,7 +62,8 @@ with open("day13in.txt") as f:
         f.readline();
         line = f.readline();
         i += 1
-print("Part 1: ", p1);
+print("Part 1:", p1, "in", time.time()-start,"s");
+start = time.time();
 packets = [];
 for line in open("day13in.txt"):
     if line == "\n":
@@ -87,4 +90,4 @@ for i in range(len(packets)):
         div1 = i + 1;
     if compare(parse("[[6]]",1)[0],packets[i]) == 0:
         div2 = i + 1;
-print("Part 2: ",div1*div2);
+print("Part 2:", div1*div2, "in", time.time()-start,"s");
