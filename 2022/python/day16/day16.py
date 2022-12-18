@@ -93,7 +93,15 @@ def part2(valves,start):
     for i in range(len(vals[1])):
         perms.extend(itertools.combinations(vals[1],i));
     for p in perms:
-
+        newValves = valves.copy();
+        for str in p:
+            newValves.remove(valve.find(newValves,str));
+        newVals = part1(newValves,start,26);
+        newEValves = list(filter(lambda v : v.name not in newVals[1],valves));
+        newEVals = part1(newEValves,start,26);
+        newOut = newVals[0] + newEVals[0];
+        if newOut > out:
+            out = newOut;
     return out;
 
 startTime = time.time();
@@ -105,7 +113,6 @@ valve.getDistances(valves);
 start = valve.find(valves,"AA");
 start2 = valve.find(valves,"AA");
 valves = list(filter(lambda v : v.rate > 0, valves)); 
-print(len(valves));
-#print("Part 1:",part1(valves,start,30)[0],"in",time.time()-startTime,"s");
+print("Part 1:",part1(valves,start,30)[0],"in",time.time()-startTime,"s");
 startTime = time.time();
 print("Part 2:",part2(valves,start2),"in",time.time()-startTime,"s");
