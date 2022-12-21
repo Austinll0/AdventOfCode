@@ -41,45 +41,60 @@ def matches(state1,state2):
     if state1[2] != state2[2]:
         return False;
     return True;
-blueprint = 0;
-out = 0;
-for line in open("day19ex.txt"):
-    blueprint += 1;
-    costs = parse(line);
-    maxBots = getMax(costs);
-    startProduction = [1,0,0,0];
-    startInventory = [0,0,0,0];
-    start = [startProduction,startInventory,24];
+def simulate(start,costs):
     queue = [start];
+    maxBots = getMax(costs);
     geodes = 0;
     while queue:
-        round = queue.pop(0);
+        round = queue.pop();
+        maxGeodes = round[1][3] + round[0][3] * round[2] + sum(range(round[2]+1))
+        if maxGeodes < geodes:
+            continue;
         canBuild = False;
         for i in range(4):
             if round[0][i] >= maxBots[i]:
-                print(round[0]);
                 continue;
             turnsNeeded = turnsToMake(costs[i],round[0],round[1]);
             if turnsNeeded + 1> round[2]:
                 continue;
-            newInv = matrixMath(round[0],costs[i],round[1],turnsNeeded);
+            newInv = matrixMath(round[0],costs[i],round[1],turnsNeeded+1);
             newPrd = round[0].copy();
             newPrd[i] += 1;
-            newTrn = round[2] - turnsNeeded;
+            newTrn = round[2] - turnsNeeded - 1;
             newRnd = [newPrd,newInv,newTrn];
-            found = False;
-            for q in queue:
-                if matches(newRnd,q):
-                    found = True;
-                    break;
-            if found:
-                continue;
             queue.append([newPrd,newInv,newTrn]);
             canBuild = True;
         if not canBuild:
             newGeodes = round[1][3] + round[0][3] * round[2];
             if newGeodes > geodes:
                 geodes = newGeodes;
-    out += geodes * blueprint;
-print(out);
+    return geodes;
 
+def part1():
+    blueprint = 0;
+    out = 0;
+    for line in open("day19in.txt"):
+        blueprint += 1;
+        costs = parse(line);
+        startProduction = [1,0,0,0];
+        startInventory = [0,0,0,0];
+        start = [startProduction,startInventory,24];
+        queue = [start];
+        out += simulate(start,costs) * blueprint;
+    return out;
+def part2():
+    out = 1;
+    with open("day19in.txt") as f:
+        for _ in range(3):
+            line = f.readline();
+            costs = parse(line);
+            startProduction = [1,0,0,0];
+            startInventory = [0,0,0,0];
+            start = [startProduction,startInventory,32];
+            queue = [start];
+            out *= simulate(start,costs);
+    return out;
+startTime = time.time();
+print("Part 1:" , part1() , "in" , time.time()-startTime,"s");
+startTime = time.time();
+print("Part 2:" , part2() , "in" , time.time()-startTime,"s");
