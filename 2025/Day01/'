@@ -1,0 +1,13 @@
+
+Part1 = 0;
+with open('Day01ex.txt', 'r') as f:
+    line = f.readline()
+    safe = 50;
+    while line:
+        num = int(line[1:-1])
+        safe = safe + num if line[0] == "R" else safe - num 
+        print(num,safe)
+        if safe == 0:
+            Part1 += 1;
+        line = f.readline()
+print(Part1)

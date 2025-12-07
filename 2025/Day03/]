@@ -1,0 +1,37 @@
+part1 = 0
+part2 = 0
+def jolt2(line,digits):
+    nums = list(line[len(line)-digits:len(line)])
+    for i in range(digits):
+        nums[i] = int(nums[i])
+    print(nums)
+    for i in range(len(line)-1-digits,-1,-1):
+        k = int(line[i])
+        for j in range(len(nums)):
+            if nums[j] < k:
+                nums[j],k = k, nums[j]
+            else: break
+    joltage = 0;
+    for i in range(digits):
+        joltage += nums[i]*10**(digits-1)
+    print(joltage)
+    return joltage
+ 
+def jolt(line):
+    num = int(line[-2])
+    num2 = int(line[-1])
+    for i in range(len(line)-3,-1,-1):
+        k = int(line[i])
+        if k >= num:
+            num2 = num if num > num2 else num2
+            num = k
+
+    return num*10 + num2
+        
+    
+with open("Day03ex.txt") as f:
+   line = f.readline().strip()
+   while(line):
+       part1 += jolt2(line,2)
+       line = f.readline().strip()
+print(part1)
