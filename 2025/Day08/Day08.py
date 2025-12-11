@@ -1,3 +1,4 @@
+import heapq
 class box:
     def __init__(self,pts):
         pts = pts.split(",")
@@ -33,6 +34,29 @@ def merge(A,B):
         b = B.pop()
         b.chain = A
         if b not in A: A.append(b)
+def applyLink(chains,links):
+    c = heapq.heappop(links)
+    if not( c[1].chain or c[2].chain):
+        newChain = [c[1],c[2]]
+        chains.append(newChain)
+        c[1].chain = newChain
+        c[2].chain = newChain
+        return c
+    if c[1].chain ==  c[2].chain:
+        return c
+    if c[1].chain and c[2].chain:
+        chains.remove(c[2].chain)
+        merge(c[1].chain,c[2].chain)
+        return c
+    if c[2].chain:
+        c[2].chain.append(c[1])
+        c[1].chain = c[2].chain
+    else: 
+        c[1].chain.append(c[2])
+        c[2].chain = c[1].chain
+    return c
+
+    
 ex = False
 link = "Day08ex.txt"
 connections = 10
@@ -43,43 +67,21 @@ boxes = open(link,"r").read().split("\n")
 boxes.pop()
 boxes = [box(b) for b in boxes]
 
-links = [];
+links = []
 for i in range(len(boxes)):
     closest = []
     for j in range(i+1,len(boxes)):
         A = boxes[i]
         B = boxes[j]
         d = A.getDist(B)
-        if len(closest) < 10:
-            insert([A,B,d],closest)
-            continue
-        elif d < closest[-1][2]:
-            insert([A,B,d],closest)
-            closest.pop()
-    for c in closest:
-        insert(c,links)
+        heapq.heappush(links,[d,A,B])
 chains = []
-
 for i in range(connections):
-    c = links[i]
-    if not( c[0].chain or c[1].chain):
-        newChain = [c[0],c[1]]
-        chains.append(newChain)
-        c[0].chain = newChain
-        c[1].chain = newChain
-        continue;
-    if c[0].chain ==  c[1].chain:
-        continue;
-    if c[0].chain and c[1].chain:
-        chains.remove(c[1].chain)
-        merge(c[0].chain,c[1].chain)
-        continue;
-    if c[1].chain:
-        c[1].chain.append(c[0])
-        c[0].chain = c[1].chain
-    else: 
-        c[0].chain.append(c[1])
-        c[1].chain = c[0].chain
+    applyLink(chains,links)
 nums = [len(c) for c in chains]
 nums = sorted(nums,reverse=True)
 print(nums[0]*nums[1]*nums[2])
+part2 = 0;
+while(len(chains[0]) != len(boxes)):
+    part2 = applyLink(chains,links)
+print(part2[1].x * part2[2].x)
