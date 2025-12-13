@@ -15,7 +15,7 @@ class machine:
                 b += 1 << int(num)
             self.buttons.append(b)
         
-    def solve(self):
+    def start(self):
         l = len(self.buttons)
         nums = range(l)
         for i in range(1,l):
@@ -31,6 +31,5 @@ machs.pop()
 machs = [machine(m) for m in machs]
 part1 = 0;
 for m in machs:
-    print(m.solve())
-    part1 += m.solve() 
+    part1 += m.start() 
 print(part1)
